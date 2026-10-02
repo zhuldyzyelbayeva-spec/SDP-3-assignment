@@ -1,0 +1,41 @@
+diff --git a/src/AsciiRenderer.java b/src/AsciiRenderer.java
+new file mode 100644
+index 0000000..c626b35
+--- /dev/null
++++ b/src/AsciiRenderer.java
+@@ -0,0 +1,12 @@
++/** Concrete Implementor I3: ASCII-style rendering added independently. */
++public class AsciiRenderer implements Renderer {
++    @Override
++    public String renderCircle(int radius) {
++        return "ASCII circle radius=" + radius;
++    }
++
++    @Override
++    public String renderSquare(int side) {
++        return "ASCII square side=" + side;
++    }
++}
+diff --git a/src/Main.java b/src/Main.java
+index 033aa4f..0bda6ab 100644
+--- a/src/Main.java
++++ b/src/Main.java
+@@ -52,7 +52,17 @@ public class Main {
+                     + expectedBefore + " | after=" + expectedAfter, actual);
+         });
+ 
+-        System.out.println("SUMMARY: " + passed + "/5 PASS");
++        check("T6", "Circle + AsciiRenderer", () -> {
++            Circle circle = new Circle("C1", 2, new AsciiRenderer());
++            return new CheckResult("ASCII circle radius=2", circle.execute());
++        });
++
++        check("T7", "Square + AsciiRenderer", () -> {
++            Square square = new Square("S1", 3, new AsciiRenderer());
++            return new CheckResult("ASCII square side=3", square.execute());
++        });
++
++        System.out.println("SUMMARY: " + passed + "/7 PASS");
+     }
+     private static void check(String id, String participants, CheckAction action) {
+         CheckResult result;
