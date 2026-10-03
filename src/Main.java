@@ -67,46 +67,52 @@ public class Main {
         });
 
         // T5
+        Circle circle = new Circle("C1", 2, new VectorRenderer());
+
+        List<Shape> shapes = new ArrayList<>();
+        shapes.add(circle);
+
+        Shape originalReference = shapes.get(0);
+
+        String idBefore = originalReference.getId();
+        int radiusBefore = circle.getRadius();
+        String before = originalReference.execute();
+
+        originalReference.setImplementation(new RasterRenderer());
+
+        Shape afterReference = shapes.get(0);
+
+        String idAfter = afterReference.getId();
+        int radiusAfter = circle.getRadius();
+        String after = afterReference.execute();
+
+        boolean sameObject = circle == afterReference;
+        boolean stateUnchanged =
+                idBefore.equals(idAfter) &&
+                        radiusBefore == radiusAfter;
+
         check("T5", "same Circle object; VectorRenderer -> RasterRenderer", () -> {
-
-            List<Shape> shapes = new ArrayList<>();
-            shapes.add(new Circle("C1", 2, new VectorRenderer()));
-
-            Shape originalReference = shapes.get(0);
-
-            String idBefore = originalReference.getId();
-            String before = originalReference.execute();
-
-            originalReference.setImplementation(new RasterRenderer());
-
-            Shape afterReference = shapes.get(0);
-
-            String idAfter = afterReference.getId();
-            String after = afterReference.execute();
-
-            boolean sameObject = originalReference == afterReference;
-            boolean stateUnchanged = idBefore.equals(idAfter);
-
             String actual =
-                    "sameObject=" + sameObject
-                            + " | stateUnchanged=" + stateUnchanged
-                            + " | before=" + before
-                            + " | after=" + after;
+                    "sameObject=" + sameObject +
+                            " | stateUnchanged=" + stateUnchanged +
+                            " | before=" + before +
+                            " | after=" + after;
 
             String expected =
-                    "sameObject=true"
-                            + " | stateUnchanged=true"
-                            + " | before=VECTOR circle radius=2"
-                            + " | after=RASTER circle radius=2";
+                    "sameObject=true" +
+                            " | stateUnchanged=true" +
+                            " | before=VECTOR circle radius=2" +
+                            " | after=RASTER circle radius=2";
 
             return new CheckResult(actual, expected);
         });
 
+
         // T6
         check("T6", "Circle + AsciiRenderer", () -> {
-            Circle circle = new Circle("C1", 2, new AsciiRenderer());
+            Circle asciiCircle = new Circle("C1", 2, new AsciiRenderer());
 
-            String actual = circle.execute();
+            String actual = asciiCircle.execute();
             String expected = "ASCII circle radius=2";
 
             return new CheckResult(actual, expected);
