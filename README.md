@@ -3,7 +3,7 @@
 **Student:** Zhuldyz Yelbayeva
 **Group:** SE-2522
 **Topic:** A — Drawing
-**Repository:** https://github.com/zhuldyzyelbayeva-spec/SDP-3-assignmnet.git
+**Repository:** https://github.com/zhuldyzyelbayeva-spec/SDP-3-assignment.git
 **Base commit:** 5683204c06f5e99b51d7e192737486cb3f91c9a3
 
 ## Role map
